@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>.onion // ELITE</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--g:#7CFF00;--g2:#55e000;--ink:#cfd3cf;--bg:#000;--panel:#040604}
+body{font-family:'Share Tech Mono',monospace;background:var(--bg);color:var(--ink);overflow:hidden}
+canvas{position:fixed;inset:0;z-index:-3}
+.scan{position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px);background-size:100% 3px;mix-blend-mode:overlay;opacity:.14}
+.vignette{position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 160px rgba(0,0,0,.95)}
+header{height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center}
+.logo{color:var(--g);font-size:3.6rem;letter-spacing:6px;text-shadow:0 0 28px var(--g)}
+.sub{margin-top:10px;color:#9bff78;opacity:.85}
+.badges{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.badge{border:1px dashed var(--g2);padding:4px 10px;color:#b8ff9a;background:#030803}
+#terminal{margin-top:30px;width:90%;max-width:1020px;background:var(--panel);border:1px dashed var(--g2);padding:18px;box-shadow:0 0 42px rgba(124,255,0,.28)}
+.prompt{color:var(--g)}
+.output{color:var(--ink)}
+section{padding:90px 12%}
+h2{color:var(--g);border-left:4px solid var(--g2);padding-left:14px;margin-bottom:18px;letter-spacing:2px}
+.card{background:var(--panel);border:1px solid #2f3;padding:22px;box-shadow:0 0 30px rgba(106,255,0,.25);margin-bottom:28px}
+li::before{content:'$ ';color:var(--g)}
+a{color:var(--g);text-decoration:none}
+footer{text-align:center;padding:22px;border-top:1px dashed #2f3;color:#9bff78}
+/* cinematic glitch */
+.glitch{position:relative}
+.glitch:before,.glitch:after{content:attr(data-text);position:absolute;left:0;right:0;opacity:.55}
+.glitch:before{transform:translate(1px,0);color:#00ffea;clip-path:inset(0 0 60% 0)}
+.glitch:after{transform:translate(-1px,0);color:#ff6a6a;clip-path:inset(60% 0 0 0)}
+/* cursor */
+.cursor{display:inline-block;width:8px;height:16px;background:var(--g);margin-left:4px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+<canvas id="noise"></canvas>
+<div class="scan"></div><div class="vignette"></div>
+<header>
+  <div class="logo glitch" data-text=".onion // ELITE">.onion // ELITE</div>
+  <div class="sub">UNDERGROUND AESTHETIC • VISUAL-ONLY • ZERO NOISE</div>
+  <div class="badges">
+    <div class="badge">NO-TRACK (UI)</div>
+    <div class="badge">OBFUSCATED (THEME)</div>
+    <div class="badge">ELITE UNDERGROUND</div>
+  </div>
+  <div id="terminal">
+    <span class="prompt">anon@elite:~$ </span><span id="cmd"></span><span class="cursor"></span><br>
+    <span class="output" id="out"></span>
+  </div>
+</header>
+
+<section>
+<h2>NODE</h2>
+<div class="card">Alias: SELASH<br>Profile: Offensive Security (Ethical)<br>Signal: LOW • QUALITY: HIGH</div>
+</section>
+
+<section>
+<h2>STACK</h2>
+<div class="card"><ul>
+<li>Adversary Simulation (Authorized)</li>
+<li>Red Team Operations</li>
+<li>Exploit Research (Defensive Outcomes)</li>
+<li>Infrastructure Security Testing</li>
+</ul></div>
+</section>
+
+<section>
+<h2>CONTACT</h2>
+<div class="card">Public Secure Channel: <a href="mailto:selashsunny@gmail.com">selashsunny@gmail.com</a></div>
+</section>
+
+<footer>.onion UI • ELITE UNDERGROUND • SILENT</footer>
+
+<script>
+// terminal sequence
+const seq=["status --quiet","whoami","echo 'signal: elite'"];let si=0,ci=0;const cmd=document.getElementById('cmd');const out=document.getElementById('out');
+(function run(){ if(si>=seq.length) return; if(ci<seq[si].length){cmd.textContent+=seq[si].charAt(ci++); setTimeout(run,60);} else { setTimeout(()=>{ out.textContent+= (si?"\n":"") + (si===0?"ok":si===1?"anonymous (theme)":"signal confirmed"); cmd.textContent=""; ci=0; si++; run();},220);} )();
+// green noise
+const c=document.getElementById('noise'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+function draw(){ const img=x.createImageData(c.width,c.height); for(let i=0;i<img.data.length;i+=4){ const v=Math.random()*36; img.data[i]=0; img.data[i+1]=v*4; img.data[i+2]=0; img.data[i+3]=16;} x.putImageData(img,0,0);} setInterval(draw,120);
+</script>
+</body>
+</html>
